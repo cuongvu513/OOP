@@ -1,6 +1,6 @@
 package main;
 import java.awt.Graphics;
-
+import java.awt.Font;
 import entities.Player;
 import entities.Fish;
 import java.util.Random;
@@ -13,10 +13,12 @@ public class Game implements Runnable{
     private final int UPS_SET = 200;
     private Player player;
     public Fish[] fish;
+    private Font font;
     private int quantityFish ;
     Random random = new Random();
     public Game(){
         initClasses();
+        font = new Font("Arial", Font.PLAIN, 12);
         gamePanel   = new GamePanel(this);
         gameWindow  = new GameWindow(gamePanel);
         gamePanel.requestFocus();
@@ -32,9 +34,10 @@ public class Game implements Runnable{
             int fishY = random.nextInt(100,720);
             int id = random.nextInt(72);
             fishX = random.nextInt(1280);
-
             fish[i] = new Fish(fishX,fishY);
             fish[i].setId(id);
+            int levelPlayer = player.getLevel();
+            fish[i].setLF(random.nextInt(3));
         }
     }
 
@@ -51,6 +54,8 @@ public class Game implements Runnable{
             if (player.eat(fish[i])) {
                 fish[i].setSize(0);
                 fish[i].resetFish();
+                int levelPlayer = player.getLevel();
+                fish[i].setLF(levelPlayer + random.nextInt(levelPlayer) -random.nextInt(levelPlayer));
             }
         }
 
@@ -59,6 +64,7 @@ public class Game implements Runnable{
         player.render(g);
         // fish.render(g);
         // fish2.render(g);
+        g.setFont(font);
         for (int i=0;i<quantityFish;i++){
             fish[i].render(g);
         }

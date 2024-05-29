@@ -1,5 +1,6 @@
 package entities;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -19,10 +20,14 @@ public class Player extends Entity {
     private boolean moving = false;
     private float speed = 1.5f;
     private int size ;
+    private int level;
+    private int currentExp = 0; // Kinh nghiệm hiện tại
+    private int maxExp = 10;     // Kinh nghiệm cần thiết để lên cấp
     public Player(float x ,float y){
         super(x,y);
         loadAnimations();
         this.size = 80;
+        this.level = 1;
 
     }
     public void update(){
@@ -30,8 +35,50 @@ public class Player extends Entity {
         updatePos();
         setAnimation();
     }
+    // Phương thức để thêm kinh nghiệm
+    public void gainExp(int exp) {
+        currentExp += exp;
+        if (currentExp >= maxExp) {
+            levelUp();
+        }
+    }
+
+    // Phương thức để lên cấp
+    private void levelUp() {
+        size +=10;
+        level++;
+        currentExp = 0;
+        maxExp *= 1.5; // Tăng lượng kinh nghiệm cần thiết để lên cấp tiếp theo
+    }
+    private void renderlevel(Graphics g){
+        g.setColor(Color.BLACK);
+        g.drawString("Level: " + level, (int)x +8 ,(int) y - 6);
+        g.drawString("Level: " + level,(int) x + 10,(int) y - 6);
+        g.drawString("Level: " + level, (int)x+9,(int) y - 7);
+        g.drawString("Level: " + level, (int)x+9,(int) y - 5);
+        g.setColor(Color.WHITE);
+        g.drawString("Level: " + level, (int)x+9, (int)y - 6);
+    }
+    private void renderExpbar(Graphics g){
+        int barWidth = 200; // Chiều rộng của thanh kinh nghiệm
+        int barHeight = 30; // Chiều cao của thanh kinh nghiệm
+        int expBarX = 0;   // Vị trí x của thanh kinh nghiệm
+        int expBarY = 0; // Vị trí y của thanh kinh nghiệm
+
+        g.setColor(Color.BLACK);
+        g.drawRect(expBarX - 1, expBarY - 1, barWidth + 2, barHeight + 2);
+
+        float expPercentage = (float) currentExp / maxExp;
+        int expBarFilledWidth = (int) (barWidth * expPercentage);
+
+        g.setColor(Color.GREEN);
+        g.fillRect(expBarX, expBarY, expBarFilledWidth, barHeight);
+
+    }
     public void render(Graphics g){
         g.drawImage(animations[playerAction][aniIndex], (int)x,(int)y,size,size,null);
+        renderlevel(g);
+        renderExpbar(g);
     }
 
 
@@ -103,10 +150,15 @@ public class Player extends Entity {
     public boolean eat(Fish fish){
         float xFish = fish.getX();
         float yFish = fish.getY();
-        if (Math.abs(x-xFish) <=20+size-80 && Math.abs(y-yFish)<=20+size-80){
-            System.out.println("EATTTTT");
-            this.size += fish.getSize()/40;
-            return true;
+        float sFish = fish.getSize();
+        int lv = this.level - fish.getLevel();
+        if (Math.abs(x+size/2-xFish- sFish) <= 30 && Math.abs(y+size/2-yFish-sFish)<=30){
+            if (lv>=0){
+                System.out.println("EATTTTT");
+                gainExp(fish.getLevel());
+                return true;
+            }
+            // viet game over
         }
         return false;
     }
@@ -133,6 +185,9 @@ public class Player extends Entity {
     }
     public void setDown(boolean down){
         this.down = down;
+    }
+    public int getLevel(){
+        return this.level;
     }
 
 }

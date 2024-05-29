@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
 import java.util.*;
+import java.awt.Color;
 public class Fish extends Entity {
     private static File is = new File("res/src_fish.png");
     private int aniTick, aniIndex,aniSpeed = 20;
@@ -15,11 +16,19 @@ public class Fish extends Entity {
     private int id;
     private BufferedImage[][] animations;
     private float speedFish =0.4f;
+    private Color textColor;
+    private int level;
     Random random = new Random();
+    private int LP;
+    public void setLF(int LP){
+        this.level = LP;
+    }
     public Fish(float x,float y){
         super(x, y);
         this.size = random.nextInt(20)+50;
+        this.textColor = Color.RED;
         loadAnimations();
+        
     }
     public void setId(int id){
         this.id = id;
@@ -45,6 +54,14 @@ public class Fish extends Entity {
     }
     public void render(Graphics g){
         g.drawImage(animations[fishAction][aniIndex], (int)x,(int)y,size,size,null);
+        g.setColor(Color.BLACK);
+        g.drawString("Level: " + level, (int)x +8 ,(int) y - 6);
+        g.drawString("Level: " + level,(int) x + 10,(int) y - 6);
+        g.drawString("Level: " + level, (int)x+9,(int) y - 7);
+        g.drawString("Level: " + level, (int)x+9,(int) y - 5);
+        g.setColor(Color.WHITE);
+        g.drawString("Level: " + level, (int)x+9, (int)y - 6);
+        
     }
     public void resetFish(){
         this.size = random.nextInt(20)+50;
@@ -93,5 +110,8 @@ public class Fish extends Entity {
     }
     public int getSize(){
         return this.size;
+    }
+    public int getLevel(){
+        return this.level;
     }
 }
