@@ -7,8 +7,7 @@
 
 
 ### Sau đó chọn vào mục chứa game_fish_2
-![b3](https://github.com/cuongvu513/OOP/assets/160999085/6ad97dc7-ebe8-4c33-aca1-4a21c1784a0e)
-
+![image](https://github.com/cuongvu513/OOP/assets/160999085/5fd3c62e-4d31-4116-930f-c92e67a1d5a5)
 
 ## Bước 2: Chạy file /src/main/main.java
 
