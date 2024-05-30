@@ -26,7 +26,7 @@ public class Player extends Entity {
     public Player(float x ,float y){
         super(x,y);
         loadAnimations();
-        this.size = 80;
+        this.size = 60;
         this.level = 1;
 
     }
@@ -37,7 +37,7 @@ public class Player extends Entity {
     }
     // Phương thức để thêm kinh nghiệm
     public void gainExp(int exp) {
-        currentExp += exp;
+        currentExp += exp ;
         if (currentExp >= maxExp) {
             levelUp();
         }
@@ -85,7 +85,7 @@ public class Player extends Entity {
     // update vi tri hinh anh
     private void updateAnimationTick() {
         aniTick++;
-        if (aniTick >=aniSpeed){
+        if (aniTick >= aniSpeed){
             aniTick = 0;
             aniIndex ++;
             if (aniIndex>= GetSpriteAmount(playerAction))
@@ -152,13 +152,14 @@ public class Player extends Entity {
         float yFish = fish.getY();
         float sFish = fish.getSize();
         int lv = this.level - fish.getLevel();
-        if (Math.abs(x+size/2-xFish- sFish) <= 30 && Math.abs(y+size/2-yFish-sFish)<=30){
+        if (Math.abs(x+size/2-xFish- sFish) <= 30+this.level*2 && Math.abs(y+size/2-yFish-sFish)<=30+this.level*2 ){
             if (lv>=0){
                 System.out.println("EATTTTT");
                 gainExp(fish.getLevel());
                 return true;
             }
             // viet game over
+            
         }
         return false;
     }

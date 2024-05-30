@@ -2,8 +2,10 @@ package main;
 import java.awt.Graphics;
 import java.awt.Font;
 import entities.Player;
+import entities.item.Rocket;
 import entities.Fish;
 import java.util.Random;
+import entities.item.Rocket;
 //  Khoi tao object game
 public class Game implements Runnable{
     private GameWindow  gameWindow;
@@ -15,6 +17,7 @@ public class Game implements Runnable{
     public Fish[] fish;
     private Font font;
     private int quantityFish ;
+    private Rocket rocket;
     Random random = new Random();
     public Game(){
         initClasses();
@@ -27,16 +30,16 @@ public class Game implements Runnable{
     }
     private void initClasses() {
         player = new Player(200,200);
-        quantityFish = 13;
+        quantityFish = 10;
+        rocket = new Rocket(random.nextInt(200,1000),-100);
         fish = new Fish[quantityFish];
         for (int i=0;i<quantityFish;i++){
             int fishX;
-            int fishY = random.nextInt(100,720);
+            int fishY = random.nextInt(100,700);
             int id = random.nextInt(72);
             fishX = random.nextInt(1280);
             fish[i] = new Fish(fishX,fishY);
             fish[i].setId(id);
-            int levelPlayer = player.getLevel();
             fish[i].setLF(random.nextInt(3));
         }
     }
@@ -49,6 +52,7 @@ public class Game implements Runnable{
     public void update(){
         player.update();
         //fish.update(0);
+        rocket.update();
         for (int i=0;i<quantityFish;i++){
             fish[i].update(i);
             if (player.eat(fish[i])) {
@@ -64,6 +68,7 @@ public class Game implements Runnable{
         player.render(g);
         // fish.render(g);
         // fish2.render(g);
+        rocket.render(g);
         g.setFont(font);
         for (int i=0;i<quantityFish;i++){
             fish[i].render(g);

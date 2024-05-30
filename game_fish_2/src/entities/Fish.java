@@ -19,19 +19,21 @@ public class Fish extends Entity {
     private Color textColor;
     private int level;
     Random random = new Random();
-    private int LP;
+    private int LP,levelPlayer;
     public void setLF(int LP){
         this.level = LP;
+        this.size = LP*10+ 30;
     }
     public Fish(float x,float y){
         super(x, y);
-        this.size = random.nextInt(20)+50;
+        //this.size = random.nextInt(20)+50;
         this.textColor = Color.RED;
-        loadAnimations();
-        
+        loadAnimations();   
     }
+    
     public void setId(int id){
         this.id = id;
+        
     }
     private boolean isRight(){
         if (this.id % 6 < 3 ) return false;
@@ -64,9 +66,8 @@ public class Fish extends Entity {
         
     }
     public void resetFish(){
-        this.size = random.nextInt(20)+50;
         this.id = random.nextInt(72);
-        int fishY = random.nextInt(100,800);
+        int fishY = random.nextInt(100,700);
         int fishX;
         int id = random.nextInt(72);
         if (id % 6 <3) fishX = 1300;
@@ -88,7 +89,11 @@ public class Fish extends Entity {
         if (isRight())
             x += speedFish;
         else x-= speedFish;
-        if (x < -50 || x> 1300) resetFish();
+        if (x < -50 || x> 1300) {
+            resetFish();
+            setLF(random.nextInt(7));
+        }
+        
     }
     public void update(int i){
         updateAnimationTick();

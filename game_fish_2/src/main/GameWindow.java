@@ -12,9 +12,9 @@ public class GameWindow extends JFrame{
         jframe = new JFrame();
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.add(gamePanel);
-        jframe.setLocationRelativeTo(null);
         jframe.setResizable(false);
         jframe.pack(); // can frame theo panel
+        jframe.setLocationRelativeTo(null);
         jframe.setVisible(true);
     }
 }
