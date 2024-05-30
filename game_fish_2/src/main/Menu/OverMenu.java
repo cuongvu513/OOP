@@ -16,7 +16,7 @@ public class OverMenu extends JPanel {
 
         // Tải hình ảnh nền
         try {
-            backgroundImage = ImageIO.read(new File("res/Gameover.jpg"));
+            backgroundImage = ImageIO.read(new File("res/gameover.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

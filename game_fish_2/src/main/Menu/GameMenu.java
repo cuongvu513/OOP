@@ -12,6 +12,7 @@ public class GameMenu extends JFrame {
     private GamePanel gamePanel;
     private OverMenu gameOverPanel;
     private BackGroundMusic backGroundMusic;
+    
     public GameMenu() {
         Toolkit toolkit = this.getToolkit();
         Dimension dimension = toolkit.getScreenSize();
@@ -43,6 +44,7 @@ public class GameMenu extends JFrame {
     public void showGame() {
         cardLayout.show(mainPanel, "Game");
         gamePanel.startGame();
+        this.setVisible(false);
     }
 
     public void showGameOver() {
@@ -54,5 +56,10 @@ public class GameMenu extends JFrame {
         GameMenu gameFrame = new GameMenu();
         gameFrame.setVisible(true);
         gameFrame.showMainMenu();
+    }
+    public void OverGame() {
+        GameMenu gameFrame = new GameMenu();
+        gameFrame.setVisible(true);
+        gameFrame.showGameOver();
     }
 }

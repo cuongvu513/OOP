@@ -53,6 +53,10 @@ public class Game implements Runnable{
         player.update();
         //fish.update(0);
         rocket.update();
+        if (player.check) {
+            player.GameOver();
+            gameWindow.set();
+        }
         for (int i=0;i<quantityFish;i++){
             fish[i].update(i);
             if (player.eat(fish[i])) {

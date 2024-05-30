@@ -25,6 +25,7 @@ public class Player extends Entity {
     private int currentExp = 0; // Kinh nghiệm hiện tại
     private int maxExp = 10;     // Kinh nghiệm cần thiết để lên cấp
     private GameMenu gameMenu;
+    public boolean check = false;
     public Player(float x ,float y){
         super(x,y);
         loadAnimations();
@@ -39,7 +40,7 @@ public class Player extends Entity {
     }
     // Phương thức để thêm kinh nghiệm
     public void gainExp(int exp) {
-        currentExp += exp ;
+        currentExp += exp+1 ;
         if (currentExp >= maxExp) {
             levelUp();
         }
@@ -148,9 +149,10 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
-    private void GameOver(){
+    public void GameOver(){
         gameMenu = new GameMenu();
-        gameMenu.showGameOver();
+        gameMenu.OverGame();
+        check = false;
     }
     public boolean eat(Fish fish){
         float xFish = fish.getX();
@@ -165,6 +167,10 @@ public class Player extends Entity {
             }
             // viet game over
             else {
+                check = true;
+                x = -1000;
+                y = -1000;
+                speed =0;
             }
             
         }
