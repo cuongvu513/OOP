@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import static utilz.Constants.PlayerConstants.*;
 import static utilz.Constants.Directions.*;
 import entities.Fish.*;
+import main.Menu.GameMenu;
 public class Player extends Entity {
     
     private BufferedImage[][] animations;
@@ -23,6 +24,7 @@ public class Player extends Entity {
     private int level;
     private int currentExp = 0; // Kinh nghiệm hiện tại
     private int maxExp = 10;     // Kinh nghiệm cần thiết để lên cấp
+    private GameMenu gameMenu;
     public Player(float x ,float y){
         super(x,y);
         loadAnimations();
@@ -146,7 +148,10 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
-    
+    private void GameOver(){
+        gameMenu = new GameMenu();
+        gameMenu.showGameOver();
+    }
     public boolean eat(Fish fish){
         float xFish = fish.getX();
         float yFish = fish.getY();
@@ -159,6 +164,8 @@ public class Player extends Entity {
                 return true;
             }
             // viet game over
+            else {
+            }
             
         }
         return false;
