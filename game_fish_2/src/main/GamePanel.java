@@ -2,6 +2,7 @@ package main;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.*;
@@ -64,7 +65,43 @@ public class GamePanel extends JPanel{
             g.fillRect(0, 0, getWidth(), getHeight());
         }
         game.render(g);
+
+
+        // Phan Dung 
+        String lifeText = "LIFE: " + game.getLife()  ;
+        g.setColor(Color.RED);
+        g.setFont(new Font("Times New Roman", Font.BOLD, 30));
+        g.drawString(lifeText, 1100, 40);
+
+
+        if (game.getPlayer().isStunned()){
+            paintCD_Stun(g);
+
+        }
+        if (game.getPlayer().isReversed()){
+            paintCD_Reverse(g);
+        }
     }
+    
+    private void paintCD_Stun(Graphics g) {
+        int stunTimeLeft = game.getPlayer().getStunTimeLeft() / 1000; 
+        if (stunTimeLeft > 0) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial", Font.BOLD, 20));
+            String stunText = "Thời gian bị choáng: " + stunTimeLeft + " giây!";
+            g.drawString(stunText, 450, 20);
+        }
+    }
+    private void paintCD_Reverse(Graphics g) {
+        int reverseTimeLeft = game.getPlayer().getReverseTimeLeft() / 1000; 
+        if (reverseTimeLeft > 0) {
+            g.setColor(Color.RED);
+            g.setFont(new Font("Arial", Font.BOLD, 20));
+            String reverseText = "Thời gian bị đảo ngược nút di chuyển " + reverseTimeLeft + " giây!";
+            g.drawString(reverseText, 400, 20);
+        }
+    }
+     
 
     public Game getGame(){
         return game;

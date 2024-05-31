@@ -46,7 +46,11 @@ public class Rocket extends Entity {
         g.drawImage(animations[aniIndex], (int)x,(int)y,64,144,null);
 
     }
-    
+    public void resetRocket(float x){
+        this.x =x;
+        this.size = 50;
+        this. y = -random.nextInt(1000);
+    }
     private void updateAnimationTick() {
         aniTick++;
         if (aniTick >=aniSpeed){
@@ -59,6 +63,7 @@ public class Rocket extends Entity {
     
     private void updatePos() {
         y += speedFire;
+        if (y > 1000) resetRocket(this.x);
     }
     public void update(){
         updateAnimationTick();
