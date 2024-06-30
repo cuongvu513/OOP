@@ -6,8 +6,9 @@
 ![b1](https://github.com/cuongvu513/OOP/assets/160999085/74174d4f-f7e0-43e3-b247-9708f3c6765c)
 
 
-### Sau đó chọn vào mục chứa game_fish_2
-![image](https://github.com/cuongvu513/OOP/assets/160999085/5fd3c62e-4d31-4116-930f-c92e67a1d5a5)
+### Sau đó chọn vào mục chứa FISH EATER
+![image](https://github.com/cuongvu513/OOP/assets/160999085/5a45b13b-f170-43eb-9018-61b2c424392c)
+
 
 ## Bước 2: Chạy file /src/main/main.java
 
